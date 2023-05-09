@@ -1,10 +1,13 @@
 import 'package:amazoon_clone/constants/constants.dart';
+import 'package:amazoon_clone/constants/error_handling.dart';
+import 'package:amazoon_clone/constants/utils.dart';
 import 'package:amazoon_clone/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class AuthService{
   void signUpUser({
+    required BuildContext context,
   required String email,
     required String password,
     required String name
@@ -28,8 +31,14 @@ class AuthService{
         }
       );
       print(res.body);
+      httpErrorHandler(
+          response: res,
+          context: context,
+          onSuccess: () {
+            showSnackBar(context, 'Account created!, Login with the same credentials');          }
+      );
     } catch (e){
-print(e);
+    print(e);
     }
   }
 }

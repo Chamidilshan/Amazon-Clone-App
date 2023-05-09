@@ -17,6 +17,7 @@ class User{
       'id': id,
       'name': name,
       'password': password,
+      'email': email,
       'address': address,
       'type': type,
       'token': token,
@@ -26,11 +27,11 @@ class User{
     return User(
         id: map['_id'] ?? '',
         name: map['name']  ?? '',
+      email: map['email']  ?? '',
         password: map['password']  ?? '',
         address: map['address']  ?? '',
         type: map['type']  ?? '',
         token: map['token']  ?? '',
-        email: map['email']  ?? '',
     );
   }
 

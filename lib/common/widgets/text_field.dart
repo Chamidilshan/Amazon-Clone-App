@@ -10,7 +10,10 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
     controller: controller,
     validator: (val){
-
+      if(val == null || val.isEmpty){
+        return 'Enter your $hintText';
+      }
+      return null;
     },
       decoration: InputDecoration(
         hintText: hintText,

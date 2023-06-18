@@ -3,9 +3,13 @@ import 'dart:convert';
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/constants/error_handling.dart';
 import 'package:amazoon_clone/constants/utils.dart';
+import 'package:amazoon_clone/features/home/screens/home_screen.dart';
 import 'package:amazoon_clone/models/user.dart';
+import 'package:amazoon_clone/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService{
   void signUpUser({
@@ -65,8 +69,15 @@ class AuthService{
       httpErrorHandler(
           response: res,
           context: context,
-          onSuccess: () {
-
+          onSuccess: () async{
+            SharedPreferences perfs = await SharedPreferences.getInstance();
+            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+            await perfs.setString('x-auth-token', jsonDecode(res.body)['token']);
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                HomeScreen.routeName,
+                    (route) => false
+            );
           }
       );
     } catch (e){

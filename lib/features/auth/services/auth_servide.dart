@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/constants/error_handling.dart';
 import 'package:amazoon_clone/constants/utils.dart';
@@ -36,6 +38,36 @@ class AuthService{
           context: context,
           onSuccess: () {
             showSnackBar(context, 'Account created!, Login with the same credentials');          }
+      );
+    } catch (e){
+    print(e);
+    showSnackBar(context, e.toString());
+    }
+  }
+
+  void signInUser({
+    required BuildContext context,
+  required String email,
+    required String password
+})
+  async {
+    try{
+      http.Response res = await http.post(Uri.parse('$uri/api/signin'),
+          body: jsonEncode({
+            'email' : email,
+            'password': password
+          }),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+        }
+      );
+      print(res.body);
+      httpErrorHandler(
+          response: res,
+          context: context,
+          onSuccess: () {
+
+          }
       );
     } catch (e){
     print(e);

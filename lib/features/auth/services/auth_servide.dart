@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/constants/error_handling.dart';
 import 'package:amazoon_clone/constants/utils.dart';
@@ -83,6 +82,46 @@ class AuthService{
     } catch (e){
     print(e);
     showSnackBar(context, e.toString());
+    }
+  }
+  void getUserData(
+    BuildContext? context,
+)
+  async {
+    try{
+      SharedPreferences perfs = await SharedPreferences.getInstance();
+      String? token = perfs.getString('x-auth-token');
+
+      if(token==null){
+        perfs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(
+          Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token' : token!
+        }
+      );
+
+      var response = jsonDecode(tokenRes.body);
+
+      if(response==true){
+        http.Response userRes = await http.get(
+            Uri.parse('$uri/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'x-auth-token' : token!
+            }
+        );
+
+        var userProvider = Provider.of<UserProvider>(context!, listen: false);
+        userProvider.setUser(userRes.body);
+      }
+    }
+    catch (e){
+    print(e);
+    //showSnackBar(context, e.toString());
     }
   }
 }

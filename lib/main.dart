@@ -3,6 +3,7 @@ import 'dart:js';
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazoon_clone/features/auth/services/auth_servide.dart';
+import 'package:amazoon_clone/features/home/screens/home_screen.dart';
 import 'package:amazoon_clone/providers/user_provider.dart';
 import 'package:amazoon_clone/router.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   void initState(){
     final AuthService authService = AuthService();
     super.initState();
+    authService.getUserData(context as BuildContext?);
   }
 
   @override
@@ -49,7 +51,9 @@ class _MyAppState extends State<MyApp> {
         )
       ),
       onGenerateRoute: (settings) =>generateRoute(settings),
-      home: AuthScreen()
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? HomeScreen()
+          : AuthScreen()
     );
   }
 }

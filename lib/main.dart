@@ -1,13 +1,15 @@
-import 'dart:js';
-
+import 'dart:convert';
+import 'package:amazoon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazoon_clone/features/auth/services/auth_servide.dart';
-import 'package:amazoon_clone/features/home/screens/home_screen.dart';
 import 'package:amazoon_clone/providers/user_provider.dart';
 import 'package:amazoon_clone/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/widgets.dart';
+
+import 'features/home/screens/home_screen.dart';
 
 void main() {
   runApp(
@@ -32,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   void initState(){
     final AuthService authService = AuthService();
     super.initState();
-    authService.getUserData(context as BuildContext?);
+    authService.getUserData(context);
   }
 
   @override
@@ -51,9 +53,10 @@ class _MyAppState extends State<MyApp> {
         )
       ),
       onGenerateRoute: (settings) =>generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? HomeScreen()
-          : AuthScreen()
+      home: BottomBar()
+      //Provider.of<UserProvider>(context).user.token.isNotEmpty
+               // ? HomeScreen()
+                //: AuthScreen()
     );
   }
 }

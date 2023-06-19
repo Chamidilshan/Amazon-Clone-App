@@ -84,9 +84,7 @@ class AuthService{
     showSnackBar(context, e.toString());
     }
   }
-  void getUserData(
-    BuildContext? context,
-)
+  void getUserData(BuildContext context)
   async {
     try{
       SharedPreferences perfs = await SharedPreferences.getInstance();
@@ -118,6 +116,9 @@ class AuthService{
         var userProvider = Provider.of<UserProvider>(context!, listen: false);
         userProvider.setUser(userRes.body);
       }
+
+
+
     }
     catch (e){
     print(e);

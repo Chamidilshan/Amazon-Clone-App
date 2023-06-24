@@ -1,4 +1,6 @@
 import 'package:amazoon_clone/constants/constants.dart';
+import 'package:amazoon_clone/features/account/widgets/below_app_bar.dart';
+import 'package:amazoon_clone/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -16,6 +18,7 @@ class AccountScreen extends StatelessWidget {
             ),
           ),
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 alignment: Alignment.topLeft,
@@ -24,10 +27,31 @@ class AccountScreen extends StatelessWidget {
                   width: 120.0,
                   color: Colors.black,
                 ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Row(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(right: 15.0),
+                      child: Icon(Icons.notifications_outlined),
+                    ),
+                    Icon(Icons.search),
+                  ],
+                ),
               )
             ],
           ),
         ),
+      ),
+      body: Column(
+        children: [
+          BelowAppBar(),
+          SizedBox(
+            height: 10.0,
+          ),
+          TopButtons()
+        ],
       ),
     );
   }

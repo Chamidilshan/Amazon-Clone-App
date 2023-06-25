@@ -1,5 +1,6 @@
 import 'package:amazoon_clone/constants/constants.dart';
 import 'package:amazoon_clone/features/account/widgets/below_app_bar.dart';
+import 'package:amazoon_clone/features/account/widgets/orders.dart';
 import 'package:amazoon_clone/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +11,10 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: GlobalConstants.appBarGradient
             ),
           ),
@@ -29,8 +30,8 @@ class AccountScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                child: Row(
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                child: const Row(
                   children: [
                     Padding(
                         padding: EdgeInsets.only(right: 15.0),
@@ -44,13 +45,13 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
+      body: const Column(
         children: [
           BelowAppBar(),
-          SizedBox(
-            height: 10.0,
-          ),
-          TopButtons()
+          SizedBox(height: 10.0),
+          TopButtons(),
+          SizedBox(height: 20.0),
+          Orders()
         ],
       ),
     );
